@@ -1,0 +1,136 @@
+[
+    {
+        "_id": {
+          "$oid": "66486db58cc1a442de62368d"
+        },
+        "name":"Bánh mousse vuông sữa chua việt quất",
+        "moneybysize":[
+            {
+              "size": "18x18x6 cm",
+              "money": "320000"
+          }
+
+        ]
+      },
+      
+      {
+        "_id": {
+          "$oid": "664870728cc1a442de623693"
+        },
+        "name":"Bông lan trứng muối chữ nhật không cắt miếng",
+        "moneybysize":[
+            {           
+              "size": "24x32x6 cm",
+              "money": "420000"
+            }
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664870c98cc1a442de623694"
+        },
+        "name":"Bánh kem chữ nhật cắt miếng vị sữa chua hoa quả",
+        "moneybysize":[
+          {          
+            "size": "24x32x6 cm",
+            "money": "480000"
+          }
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664871e48cc1a442de623698"
+        },
+        "name":"Bánh kem Colorful Rainbow",
+        "moneybysize":[
+          {         
+            "money": "180000",
+            "size": "17x8 cm"
+          },
+          {
+            "money":"150000",
+            "size":"13x6 cm"
+          },
+          {
+            "money":"290000",
+            "size":"21x8 cm"
+          }
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664873ad8cc1a442de623699"
+        },
+        "name":"Bánh kem Colorful 5 màu",
+        "moneybysize":[
+          {"money": "220000",
+          "size": "17x8 cm"},
+          {"money": "150000",
+          "size": "13x6 cm"},
+          {"money": "290000",
+          "size": "21x8 cm"}
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664873ec8cc1a442de62369a"
+        },
+        "name":"Bánh kem Cherry Hồng Pastel",
+        "moneybysize":[
+          {"money": "150000",
+          "size": "13x6 cm"},
+          {"money": "220000",
+          "size": "17x8 cm"},
+          {"money": "290000",
+          "size": "21x8 cm"}
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664874a78cc1a442de62369c"
+        },
+        "name":"Bánh bông lan trứng muối xoài",
+        "moneybysize":[
+          {"money": "150000",
+          "size": "14x6 cm"},
+          {"money": "220000",
+          "size": "16x8 cm"},
+          {"money": "290000",
+          "size": "20x8 cm"}
+
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664875a78cc1a442de62369d"
+        },
+        "name":"Bánh BLTM Việt Quất",
+        "moneybysize":[
+          {"money": "150000",
+          "size": "14x4 cm"},
+          {"money": "220000",
+          "size": "16x8 cm"},
+          {"money": "290000",
+          "size": "20x8 cm"}
+        ]
+      },
+      {
+        "_id": {
+          "$oid": "664875f48cc1a442de6236a0"
+        },
+        "name":"Bánh BLTM Trái Tim",
+        "moneybysize":[
+          {"money": "150000",
+          "size": "14x4 cm"},
+          {"money": "220000",
+          "size": "16x8 cm"},
+          {"money": "290000",
+          "size": "20x8 cm"}
+        ]
+      }
+]
