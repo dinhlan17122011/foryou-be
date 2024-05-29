@@ -9,6 +9,6 @@ class post {
       }
     }
 
-  }
+}
   
 module.exports = new post();

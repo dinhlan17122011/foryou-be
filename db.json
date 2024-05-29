@@ -1,136 +1,83 @@
+
 [
     {
-        "_id": {
-          "$oid": "66486db58cc1a442de62368d"
-        },
-        "name":"Bánh mousse vuông sữa chua việt quất",
-        "moneybysize":[
-            {
-              "size": "18x18x6 cm",
-              "money": "320000"
-          }
-
-        ]
-      },
-      
-      {
-        "_id": {
-          "$oid": "664870728cc1a442de623693"
-        },
-        "name":"Bông lan trứng muối chữ nhật không cắt miếng",
-        "moneybysize":[
-            {           
-              "size": "24x32x6 cm",
-              "money": "420000"
-            }
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664870c98cc1a442de623694"
-        },
-        "name":"Bánh kem chữ nhật cắt miếng vị sữa chua hoa quả",
-        "moneybysize":[
-          {          
-            "size": "24x32x6 cm",
-            "money": "480000"
-          }
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664871e48cc1a442de623698"
-        },
-        "name":"Bánh kem Colorful Rainbow",
-        "moneybysize":[
-          {         
-            "money": "180000",
-            "size": "17x8 cm"
-          },
-          {
-            "money":"150000",
-            "size":"13x6 cm"
-          },
-          {
-            "money":"290000",
-            "size":"21x8 cm"
-          }
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664873ad8cc1a442de623699"
-        },
-        "name":"Bánh kem Colorful 5 màu",
-        "moneybysize":[
-          {"money": "220000",
-          "size": "17x8 cm"},
-          {"money": "150000",
-          "size": "13x6 cm"},
-          {"money": "290000",
-          "size": "21x8 cm"}
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664873ec8cc1a442de62369a"
-        },
-        "name":"Bánh kem Cherry Hồng Pastel",
-        "moneybysize":[
-          {"money": "150000",
-          "size": "13x6 cm"},
-          {"money": "220000",
-          "size": "17x8 cm"},
-          {"money": "290000",
-          "size": "21x8 cm"}
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664874a78cc1a442de62369c"
-        },
-        "name":"Bánh bông lan trứng muối xoài",
-        "moneybysize":[
-          {"money": "150000",
-          "size": "14x6 cm"},
-          {"money": "220000",
-          "size": "16x8 cm"},
-          {"money": "290000",
-          "size": "20x8 cm"}
-
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664875a78cc1a442de62369d"
-        },
-        "name":"Bánh BLTM Việt Quất",
-        "moneybysize":[
-          {"money": "150000",
-          "size": "14x4 cm"},
-          {"money": "220000",
-          "size": "16x8 cm"},
-          {"money": "290000",
-          "size": "20x8 cm"}
-        ]
-      },
-      {
-        "_id": {
-          "$oid": "664875f48cc1a442de6236a0"
-        },
-        "name":"Bánh BLTM Trái Tim",
-        "moneybysize":[
-          {"money": "150000",
-          "size": "14x4 cm"},
-          {"money": "220000",
-          "size": "16x8 cm"},
-          {"money": "290000",
-          "size": "20x8 cm"}
-        ]
-      }
+      "_id": "664870728cc1a442de623693",
+      "name": "Bông lan trứng muối chữ nhật không cắt miếng",
+      "describe": "Cốt bánh vani, kết hợp cùng sốt phô mai và sốt bơ trứng thơm ngậy, bên trên trang trí ruốc gà cay, chà bông heo và trứng muối, viết lịch theo yêu cầu",
+      "img": "https://www.savor.vn/static/589bdd6afa9c7086da9b1e89edf950a8/62c39/bong-lan-trung-muoi-chu-nhat-khong-cat-mieng.webp",
+      "size": "24x32x6 cm",
+      "number": 420000
+    },
+    {
+      "_id": "664870c98cc1a442de623694",
+      "name": "Bánh kem chữ nhật cắt miếng vị sữa chua hoa quả",
+      "describe": "Kem tươi vị sữa chua, mứt việt quất, cốt vani. Trang trí hoa quả như ảnh, gồm xoài, việt quất, nho và dâu tây. Cắt sẵn 35 miếng",
+      "img": "https://www.savor.vn/static/13c952de008dc3e0c2aa2b1171fe724a/7f185/banh-kem-chu-nhat-cat-mieng-vi-sua-chua-hoa-qua.webp",
+      "size": "24x32x6 cm",
+      "number": 480000
+    },
+    {
+      "_id": "664871e48cc1a442de623698",
+      "name": "Bánh kem Colorful Rainbow",
+      "number": 180000,
+      "img": "https://www.savor.vn/static/7756c8b0d54663fc96c50afac307f117/a54e6/banh-kem-colorful-rainbow.webp",
+      "describe": "Bánh kem cốt vani, nhân mứt xoài kèm xoài dứa tươi, trang trí kem màu trên mặt bánh phong cách Hàn Quốc",
+      "size": "17x8 cm"
+    },
+    {
+      "_id": "664873ad8cc1a442de623699",
+      "name": "Bánh kem Colorful 5 màu",
+      "number": 150000,
+      "img": "https://www.savor.vn/static/abdd91bd8edec4cbba084007a52638e4/08573/banh-kem-colorful-5-mau.webp",
+      "describe": "Bánh kem cốt vani, nhân mứt xoài kèm xoài dứa tươi, trang trí kem màu trên mặt bánh phong cách Hàn Quốc",
+      "size": "17x8 cm"
+    },
+    {
+      "_id": "664873ec8cc1a442de62369a",
+      "name": "Bánh kem Cherry Hồng Pastel",
+      "number": 150000,
+      "img": "https://www.savor.vn/static/6252941a0ec615885e773a305bc460a8/9f0d1/banh-kem-cherry-hong-pastel.webp",
+      "describe": "Bánh kem cốt vani mứt cherry, trang trí màu hồng pastel nhẹ nhàng và hình cherry nhỏ xinh",
+      "size": "17x8 cm"
+    },
+    {
+      "_id": "664874a78cc1a442de62369c",
+      "name": "Bánh bông lan trứng muối xoài",
+      "number": 150000,
+      "img": "https://www.savor.vn/static/36037f8fb1d5d60ba41e1ee0c5755442/f1b62/banh-bong-lan-trung-muoi-xoai.webp",
+      "describe": "Cốt vani, sốt bơ trứng. Trang trí thêm chà bông heo đặc biệt, xoài và trứng muối",
+      "size": "16x8 cm"
+    },
+    {
+      "_id": "664875a78cc1a442de62369d",
+      "name": "Bánh BLTM Việt Quất",
+      "number": 180000,
+      "img": "https://www.savor.vn/static/63178aefbcdc9e9b83d0e26e16ebc1d2/9f0d1/banh-bltm-viet-quat.webp",
+      "describe": "Cốt bông lan mềm mịn kết hợp sốt bơ trứng và sốt phô mai béo ngậy, xen giữa chà bông heo và trứng muối ở mỗi lớp bánh, trang trí thêm việt quất tươi",
+      "size": "16x8 cm"
+    },
+    {
+      "_id": "664875f48cc1a442de6236a0",
+      "name": "Bánh BLTM Trái Tim",
+      "number": 180000,
+      "img": "https://www.savor.vn/static/4213e420583d88f11877b867129be158/35427/banh-bltm-trai-tim.webp",
+      "describe": "Phiên bản nhiều ruốc, nhiều trứng muối hơn, trang trí thêm hình trái tim trên mặt. Cốt bánh mềm ẩm, ngoài sốt dầu trứng còn có thêm sốt phô mai béo ngậy, ăn cùng chà bông heo và ruốc gà cay.",
+      "size": "16x8 cm"
+    },
+    {
+      "_id": "664c8db6bc300b229fcd3fa9",
+      "name": "Bánh mousse vuông sữa chua việt quất",
+      "describe": "Cốt vani với 2 lớp mousse sữa chua và mousse việt quất, bên trên trang trí việt quất và xoài tươi. Có thể lựa chọn cắt bánh (tối đa 16 miếng) hoặc không cắt bánh.",
+      "img": "https://www.savor.vn/static/c7d129f0141580afcc0c588c6eee6e7d/62c39/banh-mousse-vuong-sua-chua-viet-quat.webp",
+      "size": "18x18x6 cm",
+      "number": 320000
+    },
+    {
+      "_id": "664c8e6ebc300b229fcd3fb0",
+      "name": "Bánh mousse vuông sữa chua việt quất",
+      "describe": "Cốt vani với 2 lớp mousse sữa chua và mousse việt quất, bên trên trang trí việt quất và xoài tươi. Có thể lựa chọn cắt bánh (tối đa 16 miếng) hoặc không cắt bánh.",
+      "img": "https://www.savor.vn/static/c7d129f0141580afcc0c588c6eee6e7d/62c39/banh-mousse-vuong-sua-chua-viet-quat.webp",
+      "size": "18x18x6 cm",
+      "number": 320000
+    }
 ]
