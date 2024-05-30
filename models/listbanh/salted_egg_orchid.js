@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const list = new Schema({
+const mongoServer = new MongoMemoryServer();
+const mongoUri = mongoServer.getUri();
+const list = new Schema(mongoUri,{
     name:{ type: String },
     number:{ type: Number },
     img:{ type: String },
