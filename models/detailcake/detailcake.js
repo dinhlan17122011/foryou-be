@@ -1,11 +1,15 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
-
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import {mongoose} from 'mongoose';
+const mongoServer = new MongoMemoryServer();
 async function detailcake() {
-  const mongoServer = await MongoMemoryServer.create();
-  const mongoUri = mongoServer.getUri();
+    const uri = await mongoServer.getUri();
+   await mongoose().connect(uri, {
+    useNewUrlParser: true, useUnifiedTopology: true 
+  });
 
-  await mongoose.connect(mongoUri, {
+  console.log('Connected to MongoDB In-Memory server');
+}
+const detailcakeSchema = new mongoose.Schema({
     name:{type: String},
     moneybysize:[
        { 
@@ -17,11 +21,5 @@ async function detailcake() {
     updatedAt: { type: Date , default:Date.now },
   });
 
-  console.log('Connected to MongoDB In-Memory server');
-}
-
-detailcake().catch(err => {
-  console.error('Failed to start server:', err);
-});
-
-module.exports= mongoose.model('detailcake',detailcake)
+const detailcakeModel = mongoose.model('detailcake', detailcakeSchema);
+export default detailcakeModel;

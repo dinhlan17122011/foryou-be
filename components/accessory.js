@@ -1,4 +1,4 @@
-import { find } from '../models/saccessory/accessory.js';
+import find from '../models/saccessory/accessory.js';
 
 class post {
     async index(req, res) {

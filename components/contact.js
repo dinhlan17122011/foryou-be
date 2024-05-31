@@ -1,4 +1,4 @@
-import { find } from '../models/contact/contact.js';
+import find from '../models/contact/contact.js';
 
 class post {
     async index(req, res) {

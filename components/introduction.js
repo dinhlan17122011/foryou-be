@@ -1,4 +1,4 @@
-import { find } from '../models/introduction/introduction.js';
+import find from '../models/introduction/introduction.js';
 class post {
     async index(req, res) {
       try{

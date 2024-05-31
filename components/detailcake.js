@@ -1,4 +1,4 @@
-import { findById } from '../models/detailcake/detailcake.js';
+import findById from '../models/detailcake/detailcake.js';
 const id =['664c8e6ebc300b229fcd3fb0','66486db58cc1a442de62368d','664870c98cc1a442de623694',
           '664871e48cc1a442de623698','664873ec8cc1a442de62369a','664874a78cc1a442de62369c',
           '664875a78cc1a442de62369d','664875f48cc1a442de6236a0', null

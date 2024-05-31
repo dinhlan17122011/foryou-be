@@ -1,4 +1,4 @@
-import { find } from '../models/policy/policy.js';
+import find from '../models/policy/policy.js';
 class post {
     async index(req, res) {
       try{

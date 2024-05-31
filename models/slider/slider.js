@@ -1,22 +1,20 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
-
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import {mongoose} from 'mongoose';
+const mongoServer = new MongoMemoryServer();
 async function slider() {
-  const mongoServer = await MongoMemoryServer.create();
-  const mongoUri = mongoServer.getUri();
+    const uri = await mongoServer.getUri();
+   await mongoose().connect(uri, {
+    useNewUrlParser: true, useUnifiedTopology: true 
+  });
 
-  await mongoose.connect(mongoUri, {
+  console.log('Connected to MongoDB In-Memory server');
+}
+const sliderSchema = new mongoose.Schema({
     img:{ type: String },
     nameimg:{ type: String },
     createdAt: { type: Date , default:Date.now },
     updatedAt: { type: Date , default:Date.now },
   });
 
-  console.log('Connected to MongoDB In-Memory server');
-}
-
-slider().catch(err => {
-  console.error('Failed to start server:', err);
-});
-
-module.exports= mongoose.model('slider',slider)
+const sliderModel = mongoose.model('slider', sliderSchema);
+export default sliderModel;

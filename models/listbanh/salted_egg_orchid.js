@@ -1,11 +1,15 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
-
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import {mongoose} from 'mongoose';
+const mongoServer = new MongoMemoryServer();
 async function list() {
-  const mongoServer = await MongoMemoryServer.create();
-  const mongoUri = mongoServer.getUri();
+    const uri = await mongoServer.getUri();
+   await mongoose().connect(uri, {
+    useNewUrlParser: true, useUnifiedTopology: true 
+  });
 
-  await mongoose.connect(mongoUri, {
+  console.log('Connected to MongoDB In-Memory server');
+}
+const listSchema = new mongoose.Schema({
     name:{ type: String },
     number:{ type: Number },
     img:{ type: String },
@@ -15,11 +19,6 @@ async function list() {
     updatedAt: { type: Date , default:Date.now },
   });
 
-  console.log('Connected to MongoDB In-Memory server');
-}
-
-list().catch(err => {
-  console.error('Failed to start server:', err);
-});
-
-module.exports= mongoose.model('list',list)
+// const listModel = mongoose.model('list', listSchema);
+const listModel = mongoose.model.list || mongoose.model('list', listSchema);
+export default listModel;

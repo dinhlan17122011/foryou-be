@@ -1,4 +1,4 @@
-import { list } from '../models/listbanh/salted_egg_orchid.js';
+import list from '../models/listbanh/salted_egg_orchid.js';
 class post {
     async index(req, res) {
       try{

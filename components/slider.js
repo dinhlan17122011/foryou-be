@@ -1,4 +1,4 @@
-import { find } from '../models/slider/slider.js';
+import find from '../models/slider/slider.js';
 class post {
     async index(req, res) {
       try{
