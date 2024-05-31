@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const cake = require('../components/list')
-const slider = require('../components/slider')
-const detailcake = require('../components/detailcake')
-const accessory = require('../components/accessory')
-const introduction = require('../components/introduction')
-const contact = require('../components/contact')
-const policy =require('../components/policy')
+import { Router } from 'express';
+const router = Router();
+import cake from '../components/list.js';
+import slider from '../components/slider.js';
+import detailcake from '../components/detailcake.js';
+import accessory from '../components/accessory.js';
+import introduction from '../components/introduction.js';
+import contact from '../components/contact.js';
+import policy from '../components/policy.js';
 
 router.use('/cake', cake.index);
 
@@ -30,4 +30,4 @@ router.use('/contact',contact.index)
 
 router.use('/policy',policy.index)
 
-module.exports = router;
+export default router;

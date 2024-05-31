@@ -1,9 +1,9 @@
-const contact = require('../models/contact/contact')
+import { find } from '../models/contact/contact.js';
 
 class post {
     async index(req, res) {
       try{
-        const posts =await contact.find();
+        const posts =await find();
         res.status(200).json(posts)
       }catch(err){
         res.status(500).json({error:err})
@@ -12,4 +12,4 @@ class post {
 
   }
   
-module.exports = new post();
+export default new post();

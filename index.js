@@ -1,31 +1,26 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 const app = express();
 const port = 27017;
-const postsconnetc = require('./routes/post.js');
-const db = require('./models/ket_noi/DB_1.js')
+import postsconnetc from './routes/post.js';
+import { connect, connectslider, connectsaccessory, connectsdetailcake, connectintroduction, connectcontact, connectpolicy } from './models/ket_noi/DB_1.js';
 app.use(cors());
-const Mongod = require('mongod');
+import Mongod from 'mongod';
 
 const server = new Mongod(27017);
  
 app.use(postsconnetc)
 
 function dbco(){
-db.connect()
-db.connectslider()
-db.connectsaccessory()
-db.connectsdetailcake()
-db.connectintroduction()
-db.connectcontact()
-db.connectpolicy()
+  connect()
+  connectslider()
+  connectsaccessory()
+  connectsdetailcake()
+  connectintroduction()
+  connectcontact()
+  connectpolicy()
 }
-server.open((err) => {
-  if (!err) {
     dbco()
-
-  }
-});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

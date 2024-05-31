@@ -1,8 +1,8 @@
-const slider = require('../models/slider/slider')
+import { find } from '../models/slider/slider.js';
 class post {
     async index(req, res) {
       try{
-        const posts =await slider.find();
+        const posts =await find();
         res.status(200).json(posts)
       }catch(err){
         res.status(500).json({error:err})
@@ -11,4 +11,4 @@ class post {
 
   }
   
-module.exports = new post();
+export default new post();

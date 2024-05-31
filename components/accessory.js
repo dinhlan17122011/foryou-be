@@ -1,9 +1,9 @@
-const accssory = require('../models/saccessory/accessory')
+import { find } from '../models/saccessory/accessory.js';
 
 class post {
     async index(req, res) {
       try{
-        const posts =await accssory.find();
+        const posts =await find();
         res.status(200).json(posts)
       }catch(err){
         res.status(500).json({error:err})
@@ -12,4 +12,4 @@ class post {
 
   }
   
-module.exports = new post();
+export default new post();
