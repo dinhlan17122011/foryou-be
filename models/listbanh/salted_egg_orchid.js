@@ -22,3 +22,4 @@ const listSchema = new mongoose.Schema({
 // const listModel = mongoose.model('list', listSchema);
 const listModel = mongoose.model.list || mongoose.model('list', listSchema);
 export default listModel;
+

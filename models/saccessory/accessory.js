@@ -2,7 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import {mongoose} from 'mongoose';
 const mongoServer = new MongoMemoryServer();
 async function accessory() {
-    const uri = await mongoServer.getUri();
+    const uri = mongoServer.getUri();
    await mongoose().connect(uri, {
     useNewUrlParser: true, useUnifiedTopology: true 
   });
@@ -10,11 +10,12 @@ async function accessory() {
   console.log('Connected to MongoDB In-Memory server');
 }
 const accessorySchema = new mongoose.Schema({
-    img:{ type: String },
-    nameimg:{ type: String },
+  name:{ type: String },
+  number:{ type: Number },
+  img:{ type: String },
     createdAt: { type: Date , default:Date.now },
     updatedAt: { type: Date , default:Date.now },
   });
 
-const accessoryModel = mongoose.model('accessory', accessorySchema);
+const accessoryModel = mongoose.model('accessories', accessorySchema);
 export default accessoryModel;

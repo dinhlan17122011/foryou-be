@@ -7,7 +7,7 @@ const id =['664c8e6ebc300b229fcd3fb0','66486db58cc1a442de62368d','664870c98cc1a4
 class post {
   async index(req, res) {
     try{
-      const posts =await findById(id[1]);
+      const posts =await findById.findById(id[1]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -15,7 +15,7 @@ class post {
   }
   async index1(req, res) {
     try{
-      const posts =await findById(id[2]);
+      const posts =await findById.findById(id[2]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -23,7 +23,7 @@ class post {
   }
   async index2(req, res) {
     try{
-      const posts =await findById(id[3]);
+      const posts =await findById.findById(id[3]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -31,7 +31,7 @@ class post {
   }
   async index3(req, res) {
     try{
-      const posts =await findById(id[4]);
+      const posts =await findById.findById(id[4]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -39,7 +39,7 @@ class post {
   }
   async index4(req, res) {
     try{
-      const posts =await findById(id[5]);
+      const posts =await findById.findById(id[5]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -47,7 +47,7 @@ class post {
   }
   async index5(req, res) {
     try{
-      const posts =await findById(id[6]);
+      const posts =await findById.findById(id[6]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -55,7 +55,7 @@ class post {
   }
   async index6(req, res) {
     try{
-      const posts =await findById(id[7]);
+      const posts =await findById.findById(id[7]);
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -63,7 +63,7 @@ class post {
   }
   async index7(req, res) {
     try{
-      const posts =await findById('664875a78cc1a442de62369d');
+      const posts =await findById.findById('664875a78cc1a442de62369d');
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})
@@ -71,7 +71,7 @@ class post {
   }
   async index8(req, res) {
     try{
-      const posts =await findById('664875a78cc1a442de62369d');
+      const posts =await findById.findById('664875a78cc1a442de62369d');
       res.status(200).json([posts])
     }catch(err){
       res.status(500).json({error:err})

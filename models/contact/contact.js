@@ -17,7 +17,7 @@ const contactSchema = new mongoose.Schema({
                     email:{type:String}
                 }
             ],
-            link:[
+    link:[
                 {
                     facebook:{type:String},
                     tiktok:{type:String}

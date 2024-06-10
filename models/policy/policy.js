@@ -12,7 +12,9 @@ async function policy() {
 const policySchema = new mongoose.Schema({
     title:{type:String},
     titlelink:{type:String},
-    img:{type:String},
+    img:[
+      {img:{type:String},}
+    ],
     createdAt: { type: Date , default:Date.now },
     updatedAt: { type: Date , default:Date.now },
   });
