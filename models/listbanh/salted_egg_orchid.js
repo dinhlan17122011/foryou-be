@@ -14,6 +14,7 @@ const listSchema = new mongoose.Schema({
     number:{ type: Number },
     img:{ type: String },
     describe:{ type: String },
+    category:{type:String},
     quantity:{ type: String },
     createdAt: { type: Date , default:Date.now },
     updatedAt: { type: Date , default:Date.now },
