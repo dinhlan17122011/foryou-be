@@ -7,6 +7,7 @@ import accessory from '../components/accessory.js';
 import introduction from '../components/introduction.js';
 import contact from '../components/contact.js';
 import policy from '../components/policy.js';
+import checkout from '../components/checkout.js';
 
 router.use('/cake', cake.index);
 
@@ -29,5 +30,7 @@ router.use('/introduction',introduction.index)
 router.use('/contact',contact.index)
 
 router.use('/policy',policy.index)
+
+router.use('/checkout',checkout.index)
 
 export default router;

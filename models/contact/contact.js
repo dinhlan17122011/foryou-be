@@ -13,14 +13,15 @@ const contactSchema = new mongoose.Schema({
     information:[
                 {
                     consultinghotline:{type:Number},
-                    complainthotline:{type:Number},
-                    email:{type:String}
+                    email:{type:String},
+                    address:{type:String}
                 }
             ],
     link:[
                 {
                     facebook:{type:String},
-                    tiktok:{type:String}
+                    tiktok:{type:String},
+                    instagram:{type:String}
                 }
             ],
             createdAt: { type: Date , default:Date.now },

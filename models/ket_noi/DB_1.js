@@ -25,3 +25,6 @@ export const connectcontact=()=>{
 export const connectpolicy=()=>{
   mongoose.createConnection('mongodb://localhost:27017/cake/policy')
 }
+export const connectcheckout=()=>{
+  mongoose.createConnection('mongodb://localhost:27017/cake/checkout')
+}
