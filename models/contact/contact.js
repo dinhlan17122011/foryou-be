@@ -2,7 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import {mongoose} from 'mongoose';
 const mongoServer = new MongoMemoryServer();
 async function contact() {
-    const uri = await mongoServer.getUri();
+    const uri = mongoServer.getUri();
    await mongoose().connect(uri, {
     useNewUrlParser: true, useUnifiedTopology: true 
   });
