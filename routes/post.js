@@ -31,6 +31,84 @@ router.use('/contact',contact.index)
 
 router.use('/policy',policy.index)
 
-router.use('/checkout',checkout.index)
+//Checkout 
+
+// Hàm xử lý tạo đơn hàng mới
+const createOrder = async (req, res) => {
+    try {
+      const { items, customer } = req.body;
+  
+      // Tính tổng số tiền
+      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  
+      // Tạo đơn hàng mới
+      const newOrder = new Order({
+        items,
+        customer,
+        totalAmount,
+      });
+  
+      // Lưu đơn hàng vào cơ sở dữ liệu
+      await newOrder.save();
+  
+      res.status(201).json({ message: 'Đơn hàng đã được tạo thành công', order: newOrder });
+    } catch (error) {
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi tạo đơn hàng', error });
+    }
+  };
+  
+  // Hàm xử lý sửa đơn hàng
+  const updateOrder = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { items, customer, status } = req.body;
+  
+      // Tính tổng số tiền
+      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  
+      // Cập nhật đơn hàng
+      const updatedOrder = await Order.findByIdAndUpdate(
+        id,
+        {
+          items,
+          customer,
+          totalAmount,
+          status,
+          updatedAt: Date.now(),
+        },
+        { new: true }
+      );
+  
+      if (!updatedOrder) {
+        return res.status(404).json({ message: 'Đơn hàng không tồn tại' });
+      }
+  
+      res.status(200).json({ message: 'Đơn hàng đã được cập nhật thành công', order: updatedOrder });
+    } catch (error) {
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi cập nhật đơn hàng', error });
+    }
+  };
+  
+  // Hàm xử lý xóa đơn hàng
+  const deleteOrder = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      const deletedOrder = await Order.findByIdAndDelete(id);
+  
+      if (!deletedOrder) {
+        return res.status(404).json({ message: 'Đơn hàng không tồn tại' });
+      }
+  
+      res.status(200).json({ message: 'Đơn hàng đã được xóa thành công' });
+    } catch (error) {
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa đơn hàng', error });
+    }
+  };
+  
+
+  router.use('/checkout',createOrder)
+  router.use('/checkout/:id',updateOrder)
+  router.use('/checkout/:id',deleteOrder)
 
 export default router;
