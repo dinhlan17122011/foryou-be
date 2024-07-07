@@ -1,22 +1,18 @@
 import Checkout from '../models/checkout/checkout.js';
+import mongoose from 'mongoose';
 
 class CheckoutController {
   async createCheckout(req, res) {
     try {
       const { items, customer } = req.body;
-
-      // Tính tổng số tiền
       const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      // Tạo một instance checkout mới
       const newCheckout = new Checkout({ items, customer, totalAmount });
-
-      // Lưu checkout mới vào cơ sở dữ liệu
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
     } catch (error) {
-      console.error('Error creating checkout:', error);
+      console.error('Lỗi khi tạo checkout:', error);
       res.status(500).json({ message: 'Không thể tạo checkout', error });
     }
   }
@@ -25,19 +21,18 @@ class CheckoutController {
     try {
       const { id } = req.params;
 
-      if (!mongoose.Types.ObjectId.isValid(id)) {
+      if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'ID không hợp lệ' });
       }
 
       const checkout = await Checkout.findById(id);
-
       if (!checkout) {
         return res.status(404).json({ message: 'Không tìm thấy checkout' });
       }
 
       res.status(200).json(checkout);
     } catch (error) {
-      console.error('Error fetching checkout by ID:', error);
+      console.error('Lỗi khi lấy thông tin checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi lấy thông tin checkout', error });
     }
   }
@@ -45,15 +40,18 @@ class CheckoutController {
   async updateCheckout(req, res) {
     try {
       const { id } = req.params;
-      const { items, customer } = req.body;
+      const { items, customer, status } = req.body;
+      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      if (!mongoose.Types.ObjectId.isValid(id)) {
+      if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'ID không hợp lệ' });
       }
 
-      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-      const updatedCheckout = await Checkout.findByIdAndUpdate(id, { items, customer, totalAmount }, { new: true });
+      const updatedCheckout = await Checkout.findByIdAndUpdate(
+        id,
+        { items, customer, totalAmount, status, updatedAt: Date.now() },
+        { new: true }
+      );
 
       if (!updatedCheckout) {
         return res.status(404).json({ message: 'Không tìm thấy checkout để cập nhật' });
@@ -61,7 +59,7 @@ class CheckoutController {
 
       res.status(200).json({ message: 'Cập nhật checkout thành công', checkout: updatedCheckout });
     } catch (error) {
-      console.error('Error updating checkout:', error);
+      console.error('Lỗi khi cập nhật checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi cập nhật checkout', error });
     }
   }
@@ -70,7 +68,7 @@ class CheckoutController {
     try {
       const { id } = req.params;
 
-      if (!mongoose.Types.ObjectId.isValid(id)) {
+      if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'ID không hợp lệ' });
       }
 
@@ -82,7 +80,7 @@ class CheckoutController {
 
       res.status(200).json({ message: 'Xóa checkout thành công' });
     } catch (error) {
-      console.error('Error deleting checkout:', error);
+      console.error('Lỗi khi xóa checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error });
     }
   }

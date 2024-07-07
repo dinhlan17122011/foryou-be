@@ -8,7 +8,8 @@ import { connect, connectSlider, connectAccessory, connectDetailCake, connectInt
 import bodyParser from 'body-parser';
 // import { connect, connectslider, connectsaccessory, connectsdetailcake, connectintroduction, connectcontact, connectpolicy, connectcheckout } from './models/ket_noi/DB_1.js';
 app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
 app.use(postsconnetc);
 
 
