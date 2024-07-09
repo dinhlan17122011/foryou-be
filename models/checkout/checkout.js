@@ -1,44 +1,41 @@
 import mongoose from 'mongoose';
 
+const itemSchema = new mongoose.Schema({
+  namecake: String,
+  price: Number,
+  quantity: Number,
+  code: String,
+  size:String,
+  notecake: String,
+});
+
+const customerSchema = new mongoose.Schema({
+  orderer:[
+  {name:String,
+  phone:String,}
+  ],
+  deliveryaddress:[
+    {
+      district:String,
+      address:String,
+      ward:String,
+    }
+  ],
+  bill: String,
+  note: String,
+  
+deliverytime: [
+  {
+    time:String,
+    date:String
+  }
+]
+});
+
 const checkoutSchema = new mongoose.Schema({
-  items: [{
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product', // Giả sử bạn có model Product, nếu không bạn có thể thay đổi hoặc bỏ qua ref
-      required: true
-    },
-    quantity: {
-      type: Number,
-      required: true
-    },
-    price: {
-      type: Number,
-      required: true
-    }
-  }],
-  customer: {
-    name: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      required: true
-    },
-    address: {
-      type: String,
-      required: true
-    }
-  },
-  totalAmount: {
-    type: Number,
-    required: true
-  },
-  status: {
-    type: String,
-    enum: ['pending', 'completed', 'canceled'],
-    default: 'pending'
-  },
+  items: [itemSchema],
+  customer: customerSchema,
+  totalAmount: Number,
   createdAt: {
     type: Date,
     default: Date.now
