@@ -2,6 +2,7 @@ import Checkout from '../models/checkout/checkout.js';
 import mongoose from 'mongoose';
 
 class CheckoutController {
+  // Tạo mới checkout
   async createCheckout(req, res) {
     try {
       const { items, customer } = req.body;
@@ -17,6 +18,7 @@ class CheckoutController {
     }
   }
 
+  // Lấy thông tin checkout theo ID
   async getCheckoutById(req, res) {
     try {
       const { id } = req.params;
@@ -37,6 +39,7 @@ class CheckoutController {
     }
   }
 
+  // Cập nhật checkout
   async updateCheckout(req, res) {
     try {
       const { id } = req.params;
@@ -64,6 +67,7 @@ class CheckoutController {
     }
   }
 
+  // Xóa checkout
   async deleteCheckout(req, res) {
     try {
       const { id } = req.params;
@@ -82,6 +86,43 @@ class CheckoutController {
     } catch (error) {
       console.error('Lỗi khi xóa checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error });
+    }
+  }
+
+  // Thêm sản phẩm vào giỏ hàng
+  async addToCart(req, res) {
+    try {
+      const { cartId, productId, namecake, price, code, size, quantity } = req.body;
+
+      const checkout = await Checkout.findById(cartId);
+
+      if (!checkout) {
+        return res.status(404).json({ message: 'Checkout không tồn tại' });
+      }
+
+      const existingItemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+
+      if (existingItemIndex > -1) {
+        checkout.items[existingItemIndex].quantity += quantity;
+      } else {
+        checkout.items.push({
+          _id: mongoose.Types.ObjectId(productId),
+          namecake,
+          price,
+          code,
+          size,
+          quantity
+        });
+      }
+
+      checkout.totalAmount += price * quantity;
+      checkout.updatedAt = new Date();
+      await checkout.save();
+
+      res.status(200).json({ message: 'Thêm sản phẩm vào giỏ hàng thành công', checkout });
+    } catch (error) {
+      console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng', error });
     }
   }
 }
