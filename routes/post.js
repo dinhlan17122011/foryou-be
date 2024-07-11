@@ -35,7 +35,7 @@ router.post('/checkout', checkoutController.createCheckout);
 router.get('/checkout/:id', checkoutController.getCheckoutById);
 router.put('/checkout/:id', checkoutController.updateCheckout);
 router.delete('/checkout/:id', checkoutController.deleteCheckout);
-// router.post('/checkout/:id/add-to-cart', checkoutController.addToCart); // Thêm sản phẩm vào giỏ hàng
+router.post('/checkout/:id/add-to-cart', checkoutController.addToCart); // Thêm sản phẩm vào giỏ hàng
 
 
 export default router;

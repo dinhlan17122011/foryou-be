@@ -6,9 +6,29 @@ class CheckoutController {
   async createCheckout(req, res) {
     try {
       const { items, customer } = req.body;
-      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      const newCheckout = new Checkout({ items, customer, totalAmount });
+      // Chuyển đổi các giá trị ObjectId
+      const convertedItems = items.map(item => ({
+        ...item,
+        _id: mongoose.Types.ObjectId(item._id)
+      }));
+
+      const convertedCustomer = {
+        ...customer,
+        _id: mongoose.Types.ObjectId(customer._id),
+        orderer: customer.orderer.map(orderer => ({
+          ...orderer,
+          _id: mongoose.Types.ObjectId(orderer._id)
+        })),
+        deliveryaddress: customer.deliveryaddress.map(address => ({
+          ...address,
+          _id: mongoose.Types.ObjectId(address._id)
+        }))
+      };
+
+      const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount });
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
@@ -123,6 +143,73 @@ class CheckoutController {
     } catch (error) {
       console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng', error });
+    }
+  }
+
+  // Sửa thông tin sản phẩm trong giỏ hàng
+  async updateCartItem(req, res) {
+    try {
+      const { cartId, productId, namecake, price, code, size, quantity } = req.body;
+
+      const checkout = await Checkout.findById(cartId);
+
+      if (!checkout) {
+        return res.status(404).json({ message: 'Checkout không tồn tại' });
+      }
+
+      const itemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+
+      if (itemIndex === -1) {
+        return res.status(404).json({ message: 'Sản phẩm không tồn tại trong giỏ hàng' });
+      }
+
+      checkout.items[itemIndex] = {
+        _id: mongoose.Types.ObjectId(productId),
+        namecake,
+        price,
+        code,
+        size,
+        quantity
+      };
+
+      checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      checkout.updatedAt = new Date();
+      await checkout.save();
+
+      res.status(200).json({ message: 'Sửa thông tin sản phẩm trong giỏ hàng thành công', checkout });
+    } catch (error) {
+      console.error('Lỗi khi sửa thông tin sản phẩm trong giỏ hàng:', error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi sửa thông tin sản phẩm trong giỏ hàng', error });
+    }
+  }
+
+  // Xóa sản phẩm khỏi giỏ hàng
+  async removeFromCart(req, res) {
+    try {
+      const { cartId, productId } = req.body;
+
+      const checkout = await Checkout.findById(cartId);
+
+      if (!checkout) {
+        return res.status(404).json({ message: 'Checkout không tồn tại' });
+      }
+
+      const itemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+
+      if (itemIndex === -1) {
+        return res.status(404).json({ message: 'Sản phẩm không tồn tại trong giỏ hàng' });
+      }
+
+      checkout.items.splice(itemIndex, 1);
+
+      checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      checkout.updatedAt = new Date();
+      await checkout.save();
+
+      res.status(200).json({ message: 'Xóa sản phẩm khỏi giỏ hàng thành công', checkout });
+    } catch (error) {
+      console.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng:', error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng', error });
     }
   }
 }
