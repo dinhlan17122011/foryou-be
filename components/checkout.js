@@ -6,23 +6,29 @@ class CheckoutController {
   async createCheckout(req, res) {
     try {
       const { items, customer } = req.body;
-
+      console.log('items', items);
+      console.log('customer', customer);
       // Chuyển đổi các giá trị ObjectId
-      const convertedItems = items.map(item => ({
-        ...item,
-        _id: mongoose.Types.ObjectId(item._id)
-      }));
+      const convertedItems = items.map(item => {
+        return ({
+          ...item,
+          _id: new mongoose.Types.ObjectId()
+        });
+      });
 
       const convertedCustomer = {
         ...customer,
-        _id: mongoose.Types.ObjectId(customer._id),
+        // _id: mongoose.Types.ObjectId(customer._id),
+        _id: new mongoose.Types.ObjectId(),
         orderer: customer.orderer.map(orderer => ({
           ...orderer,
-          _id: mongoose.Types.ObjectId(orderer._id)
+          // _id: mongoose.Types.ObjectId(orderer._id)
+          _id: new mongoose.Types.ObjectId()
         })),
         deliveryaddress: customer.deliveryaddress.map(address => ({
           ...address,
-          _id: mongoose.Types.ObjectId(address._id)
+          // _id: mongoose.Types.ObjectId(address._id)
+          _id: new mongoose.Types.ObjectId()
         }))
       };
 
@@ -32,8 +38,10 @@ class CheckoutController {
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
+      console.log(hehe);
     } catch (error) {
       console.error('Lỗi khi tạo checkout:', error);
+      console.log("Looix");
       res.status(500).json({ message: 'Không thể tạo checkout', error });
     }
   }

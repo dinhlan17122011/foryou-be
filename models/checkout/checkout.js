@@ -15,7 +15,7 @@ const ordererSchema = new mongoose.Schema({
 });
 
 const deliveryAddressSchema = new mongoose.Schema({
-  district: { type: String, required: true },
+  // district: { type: String, required: true },
   address: { type: String, required: true },
   ward: { type: String, required: true },
 });
