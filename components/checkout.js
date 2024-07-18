@@ -7,22 +7,25 @@ class CheckoutController {
     try {
       const { items, customer } = req.body;
 
+      console.log('items', items);
+      console.log('customer', customer);
+
       // Chuyển đổi các giá trị ObjectId
       const convertedItems = items.map(item => ({
         ...item,
-        _id: mongoose.Types.ObjectId(item._id)
+        _id: new mongoose.Types.ObjectId()
       }));
 
       const convertedCustomer = {
         ...customer,
-        _id: mongoose.Types.ObjectId(customer._id),
+        _id: new mongoose.Types.ObjectId(),
         orderer: customer.orderer.map(orderer => ({
           ...orderer,
-          _id: mongoose.Types.ObjectId(orderer._id)
+          _id: new mongoose.Types.ObjectId()
         })),
         deliveryaddress: customer.deliveryaddress.map(address => ({
           ...address,
-          _id: mongoose.Types.ObjectId(address._id)
+          _id: new mongoose.Types.ObjectId()
         }))
       };
 
