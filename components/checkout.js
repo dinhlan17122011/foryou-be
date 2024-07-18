@@ -34,7 +34,7 @@ class CheckoutController {
 
       const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount });
+      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount })
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
@@ -113,7 +113,7 @@ class CheckoutController {
       res.status(200).json({ message: 'Xóa checkout thành công' });
     } catch (error) {
       console.error('Lỗi khi xóa checkout:', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error });
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error })
     }
   }
 
@@ -149,7 +149,7 @@ class CheckoutController {
 
       res.status(200).json({ message: 'Thêm sản phẩm vào giỏ hàng thành công', checkout });
     } catch (error) {
-      console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+      console.error('Lỗi khi thêm sản phẩm vào giỏ hàng(Phụ kiện):', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng', error });
     }
   }
