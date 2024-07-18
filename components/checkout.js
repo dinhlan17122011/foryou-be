@@ -6,42 +6,43 @@ class CheckoutController {
   async createCheckout(req, res) {
     try {
       const { items, customer } = req.body;
-      console.log('items', items);
-      console.log('customer', customer);
-      // Chuyển đổi các giá trị ObjectId
-      const convertedItems = items.map(item => {
-        return ({
-          ...item,
-          _id: new mongoose.Types.ObjectId()
-        });
-      });
+
+      // Kiểm tra xem items có phải là một mảng hợp lệ và không rỗng
+      if (!Array.isArray(items) || !items.length) {
+        return res.status(400).json({ message: 'Items không hợp lệ hoặc rỗng' });
+      }
+
+      // Kiểm tra xem customer có hợp lệ không
+      if (!customer || !Array.isArray(customer.orderer) || !Array.isArray(customer.deliveryaddress)) {
+        return res.status(400).json({ message: 'Thông tin khách hàng không hợp lệ' });
+      }
+
+      const convertedItems = items.map(item => ({
+        ...item,
+        _id: new mongoose.Types.ObjectId()
+      }));
 
       const convertedCustomer = {
         ...customer,
-        // _id: mongoose.Types.ObjectId(customer._id),
         _id: new mongoose.Types.ObjectId(),
         orderer: customer.orderer.map(orderer => ({
           ...orderer,
-          // _id: mongoose.Types.ObjectId(orderer._id)
           _id: new mongoose.Types.ObjectId()
         })),
         deliveryaddress: customer.deliveryaddress.map(address => ({
           ...address,
-          // _id: mongoose.Types.ObjectId(address._id)
           _id: new mongoose.Types.ObjectId()
         }))
       };
 
       const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount })
+      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount });
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
-      console.log(hehe);
     } catch (error) {
       console.error('Lỗi khi tạo checkout:', error);
-      console.log("Looix");
       res.status(500).json({ message: 'Không thể tạo checkout', error });
     }
   }
@@ -72,6 +73,12 @@ class CheckoutController {
     try {
       const { id } = req.params;
       const { items, customer, status } = req.body;
+
+      // Kiểm tra xem items có phải là một mảng hợp lệ không
+      if (!Array.isArray(items)) {
+        return res.status(400).json({ message: 'Items không hợp lệ' });
+      }
+
       const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
       if (!mongoose.isValidObjectId(id)) {
@@ -113,7 +120,7 @@ class CheckoutController {
       res.status(200).json({ message: 'Xóa checkout thành công' });
     } catch (error) {
       console.error('Lỗi khi xóa checkout:', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error })
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa checkout', error });
     }
   }
 
@@ -121,6 +128,10 @@ class CheckoutController {
   async addToCart(req, res) {
     try {
       const { cartId, productId, namecake, price, code, size, quantity } = req.body;
+
+      if (!mongoose.isValidObjectId(cartId)) {
+        return res.status(400).json({ message: 'Cart ID không hợp lệ' });
+      }
 
       const checkout = await Checkout.findById(cartId);
 
@@ -159,6 +170,10 @@ class CheckoutController {
     try {
       const { cartId, productId, namecake, price, code, size, quantity } = req.body;
 
+      if (!mongoose.isValidObjectId(cartId)) {
+        return res.status(400).json({ message: 'Cart ID không hợp lệ' });
+      }
+
       const checkout = await Checkout.findById(cartId);
 
       if (!checkout) {
@@ -195,6 +210,10 @@ class CheckoutController {
   async removeFromCart(req, res) {
     try {
       const { cartId, productId } = req.body;
+
+      if (!mongoose.isValidObjectId(cartId)) {
+        return res.status(400).json({ message: 'Cart ID không hợp lệ' });
+      }
 
       const checkout = await Checkout.findById(cartId);
 
