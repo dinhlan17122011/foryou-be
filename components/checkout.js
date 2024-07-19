@@ -133,8 +133,12 @@ class CheckoutController {
         return res.status(400).json({ message: 'Cart ID không hợp lệ' });
       }
 
+      if (!name || typeof name !== 'string' || !price || typeof price !== 'number' || isNaN(price) || !quantity || typeof quantity !== 'number' || isNaN(quantity)) {
+        return res.status(400).json({ message: 'Dữ liệu phụ kiện không hợp lệ' });
+      }
+
       const checkout = await Checkout.findById(cartId);
-      console.log("CardID : ",cartId);
+      console.log(cartId);
       if (!checkout) {
         return res.status(404).json({ message: 'Checkout không tồn tại' });
       }
@@ -152,7 +156,8 @@ class CheckoutController {
         });
       }
 
-      checkout.totalAmount += price * quantity;
+      checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.price * item.quantity, 0) +
+                            checkout.Accessory.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0);
       checkout.updatedAt = new Date();
       await checkout.save();
 
@@ -162,6 +167,44 @@ class CheckoutController {
       res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm phụ kiện vào giỏ hàng', error });
     }
   }
+
+  // async addAccessoryToCart(req, res) {
+  //   try {
+  //     const { cartId, accessoryId, name, price, quantity } = req.body;
+
+  //     if (!mongoose.isValidObjectId(cartId)) {
+  //       return res.status(400).json({ message: 'Cart ID không hợp lệ' });
+  //     }
+
+  //     const checkout = await Checkout.findById(cartId);
+  //     console.log("CardID : ",cartId);
+  //     if (!checkout) {
+  //       return res.status(404).json({ message: 'Checkout không tồn tại' });
+  //     }
+
+  //     const existingAccessoryIndex = checkout.Accessory.findIndex(accessory => accessory._id.toString() === accessoryId);
+
+  //     if (existingAccessoryIndex > -1) {
+  //       checkout.Accessory[existingAccessoryIndex].quantity += quantity;
+  //     } else {
+  //       checkout.Accessory.push({
+  //         _id: new mongoose.Types.ObjectId(accessoryId),
+  //         name,
+  //         price,
+  //         quantity
+  //       });
+  //     }
+
+  //     checkout.totalAmount += price * quantity;
+  //     checkout.updatedAt = new Date();
+  //     await checkout.save();
+
+  //     res.status(200).json({ message: 'Thêm phụ kiện vào giỏ hàng thành công', checkout });
+  //   } catch (error) {
+  //     console.error('Lỗi khi thêm phụ kiện vào giỏ hàng:', error);
+  //     res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm phụ kiện vào giỏ hàng', error });
+  //   }
+  // }
 
   // Sửa thông tin phụ kiện trong giỏ hàng
   async updateAccessoryInCart(req, res) {
@@ -238,3 +281,4 @@ class CheckoutController {
 }
 
 export default new CheckoutController();
+
