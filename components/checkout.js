@@ -124,10 +124,10 @@ class CheckoutController {
     }
   }
 
-  // Thêm sản phẩm vào giỏ hàng
-  async addToCart(req, res) {
+  // Thêm phụ kiện vào giỏ hàng
+  async addAccessoryToCart(req, res) {
     try {
-      const { cartId, productId, namecake, price, code, size, quantity } = req.body;
+      const { cartId, accessoryId, name, price, quantity } = req.body;
 
       if (!mongoose.isValidObjectId(cartId)) {
         return res.status(400).json({ message: 'Cart ID không hợp lệ' });
@@ -139,17 +139,15 @@ class CheckoutController {
         return res.status(404).json({ message: 'Checkout không tồn tại' });
       }
 
-      const existingItemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+      const existingAccessoryIndex = checkout.Accessory.findIndex(accessory => accessory._id.toString() === accessoryId);
 
-      if (existingItemIndex > -1) {
-        checkout.items[existingItemIndex].quantity += quantity;
+      if (existingAccessoryIndex > -1) {
+        checkout.Accessory[existingAccessoryIndex].quantity += quantity;
       } else {
-        checkout.items.push({
-          _id: mongoose.Types.ObjectId(productId),
-          namecake,
+        checkout.Accessory.push({
+          _id: mongoose.Types.ObjectId(accessoryId),
+          name,
           price,
-          code,
-          size,
           quantity
         });
       }
@@ -158,17 +156,17 @@ class CheckoutController {
       checkout.updatedAt = new Date();
       await checkout.save();
 
-      res.status(200).json({ message: 'Thêm sản phẩm vào giỏ hàng thành công', checkout });
+      res.status(200).json({ message: 'Thêm phụ kiện vào giỏ hàng thành công', checkout });
     } catch (error) {
-      console.error('Lỗi khi thêm sản phẩm vào giỏ hàng(Phụ kiện):', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng', error });
+      console.error('Lỗi khi thêm phụ kiện vào giỏ hàng:', error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi thêm phụ kiện vào giỏ hàng', error });
     }
   }
 
-  // Sửa thông tin sản phẩm trong giỏ hàng
-  async updateCartItem(req, res) {
+  // Sửa thông tin phụ kiện trong giỏ hàng
+  async updateAccessoryInCart(req, res) {
     try {
-      const { cartId, productId, namecake, price, code, size, quantity } = req.body;
+      const { cartId, accessoryId, name, price, quantity } = req.body;
 
       if (!mongoose.isValidObjectId(cartId)) {
         return res.status(400).json({ message: 'Cart ID không hợp lệ' });
@@ -180,36 +178,34 @@ class CheckoutController {
         return res.status(404).json({ message: 'Checkout không tồn tại' });
       }
 
-      const itemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+      const accessoryIndex = checkout.Accessory.findIndex(accessory => accessory._id.toString() === accessoryId);
 
-      if (itemIndex === -1) {
-        return res.status(404).json({ message: 'Sản phẩm không tồn tại trong giỏ hàng' });
+      if (accessoryIndex === -1) {
+        return res.status(404).json({ message: 'Phụ kiện không tồn tại trong giỏ hàng' });
       }
 
-      checkout.items[itemIndex] = {
-        _id: mongoose.Types.ObjectId(productId),
-        namecake,
+      checkout.Accessory[accessoryIndex] = {
+        _id: mongoose.Types.ObjectId(accessoryId),
+        name,
         price,
-        code,
-        size,
         quantity
       };
 
-      checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      checkout.totalAmount = checkout.Accessory.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0);
       checkout.updatedAt = new Date();
       await checkout.save();
 
-      res.status(200).json({ message: 'Sửa thông tin sản phẩm trong giỏ hàng thành công', checkout });
+      res.status(200).json({ message: 'Sửa thông tin phụ kiện trong giỏ hàng thành công', checkout });
     } catch (error) {
-      console.error('Lỗi khi sửa thông tin sản phẩm trong giỏ hàng:', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi sửa thông tin sản phẩm trong giỏ hàng', error });
+      console.error('Lỗi khi sửa thông tin phụ kiện trong giỏ hàng:', error);
+      res.status500().json({ message: 'Đã xảy ra lỗi khi sửa thông tin phụ kiện trong giỏ hàng', error });
     }
   }
 
-  // Xóa sản phẩm khỏi giỏ hàng
-  async removeFromCart(req, res) {
+  // Xóa phụ kiện khỏi giỏ hàng
+  async removeAccessoryFromCart(req, res) {
     try {
-      const { cartId, productId } = req.body;
+      const { cartId, accessoryId } = req.body;
 
       if (!mongoose.isValidObjectId(cartId)) {
         return res.status(400).json({ message: 'Cart ID không hợp lệ' });
@@ -221,22 +217,22 @@ class CheckoutController {
         return res.status(404).json({ message: 'Checkout không tồn tại' });
       }
 
-      const itemIndex = checkout.items.findIndex(item => item._id.toString() === productId);
+      const accessoryIndex = checkout.Accessory.findIndex(accessory => accessory._id.toString() === accessoryId);
 
-      if (itemIndex === -1) {
-        return res.status(404).json({ message: 'Sản phẩm không tồn tại trong giỏ hàng' });
+      if (accessoryIndex === -1) {
+        return res.status(404).json({ message: 'Phụ kiện không tồn tại trong giỏ hàng' });
       }
 
-      checkout.items.splice(itemIndex, 1);
+      checkout.Accessory.splice(accessoryIndex, 1);
 
-      checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      checkout.totalAmount = checkout.Accessory.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0);
       checkout.updatedAt = new Date();
       await checkout.save();
 
-      res.status(200).json({ message: 'Xóa sản phẩm khỏi giỏ hàng thành công', checkout });
+      res.status(200).json({ message: 'Xóa phụ kiện khỏi giỏ hàng thành công', checkout });
     } catch (error) {
-      console.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng:', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng', error });
+      console.error('Lỗi khi xóa phụ kiện khỏi giỏ hàng:', error);
+      res.status(500).json({ message: 'Đã xảy ra lỗi khi xóa phụ kiện khỏi giỏ hàng', error });
     }
   }
 }
