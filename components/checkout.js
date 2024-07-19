@@ -134,7 +134,7 @@ class CheckoutController {
       }
 
       const checkout = await Checkout.findById(cartId);
-
+      console.log("CardID : ",cartId);
       if (!checkout) {
         return res.status(404).json({ message: 'Checkout không tồn tại' });
       }
@@ -145,7 +145,7 @@ class CheckoutController {
         checkout.Accessory[existingAccessoryIndex].quantity += quantity;
       } else {
         checkout.Accessory.push({
-          _id: mongoose.Types.ObjectId(accessoryId),
+          _id: new mongoose.Types.ObjectId(accessoryId),
           name,
           price,
           quantity
