@@ -33,17 +33,18 @@ const customerSchema = new mongoose.Schema({
   deliverytime: [deliveryTimeSchema],
 });
 
-const accessorySchema = new mongoose.Schema({
+const AccessorySchema = new mongoose.Schema({
   name: { type: String, required: true },
-  price: { type: Number, required: true },
-  quantity: { type: Number, required: true },
+  price: { type: Number, required: true }, // Đảm bảo thêm price
+  size: { type: String, required: true },
+  quantity: { type: Number, required: true } // Đảm bảo thêm quantity
 });
 
 const checkoutSchema = new mongoose.Schema({
   items: [itemSchema],
   customer: customerSchema,
   totalAmount: { type: Number, required: true },
-  Accessory: [accessorySchema],
+  Accessory: [AccessorySchema],
   createdAt: {
     type: Date,
     default: Date.now,
