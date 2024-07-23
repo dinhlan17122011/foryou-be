@@ -127,7 +127,7 @@ class CheckoutController {
   // Thêm phụ kiện vào giỏ hàng
   async addAccessoryToCart(req, res) {
     try {
-      const { cartId, name, number, quantity } = req.body;
+      const { cartId, name, number, quantity,img } = req.body;
 
       console.log('Received from client:', { cartId, name, number, quantity });
 
@@ -148,6 +148,7 @@ class CheckoutController {
       checkout.Accessory.push({
         _id: new mongoose.Types.ObjectId(),
         name,
+        img,
         number,
         quantity
       });
