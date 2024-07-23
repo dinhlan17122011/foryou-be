@@ -1,28 +1,28 @@
 import mongoose from 'mongoose';
 
 const itemSchema = new mongoose.Schema({
-  namecake: { type: String, required: true },
-  price: { type: Number, required: true },
-  quantity: { type: Number, required: true },
-  code: { type: String, required: true },
-  size: { type: String, required: true },
+  namecake: { type: String },
+  price: { type: Number },
+  quantity: { type: Number },
+  code: { type: String },
+  size: { type: String },
   notecake: { type: String },
 });
 
 const ordererSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  phone: { type: String, required: true },
+  name: { type: String },
+  phone: { type: String },
 });
 
 const deliveryAddressSchema = new mongoose.Schema({
-  // district: { type: String, required: true },
-  address: { type: String, required: true },
-  ward: { type: String, required: true },
+  // district: { type: String },
+  address: { type: String },
+  ward: { type: String },
 });
 
 const deliveryTimeSchema = new mongoose.Schema({
-  time: { type: String, required: true },
-  date: { type: String, required: true },
+  time: { type: String },
+  date: { type: String },
 });
 
 const customerSchema = new mongoose.Schema({
@@ -34,16 +34,15 @@ const customerSchema = new mongoose.Schema({
 });
 
 const AccessorySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true }, // Đảm bảo thêm price
-  size: { type: String, required: true },
-  quantity: { type: Number, required: true } // Đảm bảo thêm quantity
+  name: { type: String },
+  number: { type: Number }, // Đảm bảo thêm price
+  quantity: { type: Number } // Đảm bảo thêm quantity
 });
 
 const checkoutSchema = new mongoose.Schema({
   items: [itemSchema],
   customer: customerSchema,
-  totalAmount: { type: Number, required: true },
+  totalAmount: { type: Number },
   Accessory: [AccessorySchema],
   createdAt: {
     type: Date,
