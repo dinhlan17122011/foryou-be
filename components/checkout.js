@@ -73,6 +73,16 @@ class CheckoutController {
     try {
       const { id } = req.params;
       const { items, customer, status } = req.body;
+      console.log(items);
+      console.log(customer);
+      console.log(status);
+      const updatedOrderData = req.body;
+      console.log('Received request with data:', req.body);
+      console.log('Received request with data:', updatedOrderData);
+
+  if (!updatedOrderData || Object.keys(updatedOrderData).length === 0) {
+    return res.status(400).json({ message: 'Invalid data' });
+  }
 
       // Kiểm tra xem items có phải là một mảng hợp lệ không
       if (!Array.isArray(items)) {
