@@ -14,20 +14,26 @@ const ordererSchema = new mongoose.Schema({
   phone: { type: String },
 });
 
+const ordererSchemarecipient = new mongoose.Schema({
+  recipientName: { type: String },
+  recipientPhone: { type: String },
+});
+
 const deliveryAddressSchema = new mongoose.Schema({
-  // district: { type: String },
   address: { type: String },
+  district: { type: String },
   ward: { type: String },
 });
 
 const deliveryTimeSchema = new mongoose.Schema({
   time: { type: String },
-  date: { type: String },
+  time: { type: String },
 });
 
 const customerSchema = new mongoose.Schema({
   orderer: [ordererSchema],
   deliveryaddress: [deliveryAddressSchema],
+  ordererSchemarecipient:[ordererSchemarecipient],
   bill: { type: String },
   note: { type: String },
   deliverytime: [deliveryTimeSchema],

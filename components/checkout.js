@@ -13,31 +13,31 @@ class CheckoutController {
       }
 
       // Kiểm tra xem customer có hợp lệ không
-      if (!customer || !Array.isArray(customer.orderer) || !Array.isArray(customer.deliveryaddress)) {
-        return res.status(400).json({ message: 'Thông tin khách hàng không hợp lệ' });
-      }
+      // if (!customer || !Array.isArray(customer.orderer) || !Array.isArray(customer.deliveryaddress)) {
+      //   return res.status(400).json({ message: 'Thông tin khách hàng không hợp lệ' });
+      // }
 
       const convertedItems = items.map(item => ({
         ...item,
         _id: new mongoose.Types.ObjectId()
       }));
 
-      const convertedCustomer = {
-        ...customer,
-        _id: new mongoose.Types.ObjectId(),
-        orderer: customer.orderer.map(orderer => ({
-          ...orderer,
-          _id: new mongoose.Types.ObjectId()
-        })),
-        deliveryaddress: customer.deliveryaddress.map(address => ({
-          ...address,
-          _id: new mongoose.Types.ObjectId()
-        }))
-      };
+      // const convertedCustomer = {
+      //   ...customer,
+      //   _id: new mongoose.Types.ObjectId(),
+      //   orderer: customer.orderer.map(orderer => ({
+      //     ...orderer,
+      //     _id: new mongoose.Types.ObjectId()
+      //   })),
+      //   deliveryaddress: customer.deliveryaddress.map(address => ({
+      //     ...address,
+      //     _id: new mongoose.Types.ObjectId()
+      //   }))
+      // };
 
-      const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      // const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-      const newCheckout = new Checkout({ items: convertedItems, customer: convertedCustomer, totalAmount });
+      const newCheckout = new Checkout({ items: convertedItems });
       await newCheckout.save();
 
       res.status(201).json({ message: 'Tạo checkout thành công', checkout: newCheckout });
