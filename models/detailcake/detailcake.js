@@ -20,6 +20,16 @@ const detailcakeSchema = new mongoose.Schema({
     createdAt: { type: Date , default:Date.now },
     updatedAt: { type: Date , default:Date.now },
   });
-
+  export const findById = async (id) => {
+    try {
+      // Kiểm tra xem id có phải là một ObjectId hợp lệ không
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error('Invalid ID format');
+      }
+      return await Product.findById(id).exec(); // Sử dụng exec() để trả về một Promise
+    } catch (error) {
+      throw new Error('Error finding product: ' + error.message);
+    }
+  };
 const detailcakeModel = mongoose.model('detailcake', detailcakeSchema);
 export default detailcakeModel;

@@ -1,82 +1,16 @@
-import findById from '../models/detailcake/detailcake.js';
-const id =['664c8e6ebc300b229fcd3fb0','66486db58cc1a442de62368d','664870c98cc1a442de623694',
-          '664871e48cc1a442de623698','664873ec8cc1a442de62369a','664874a78cc1a442de62369c',
-          '664875a78cc1a442de62369d','664875f48cc1a442de6236a0', null
-]
+import { findById } from '../models/detailcake/detailcake.js';
 
-class post {
-  async index(req, res) {
-    try{
-      const posts =await findById.findById(id[1]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
+export const index = async (req, res) => {
+  console.log('Received ID:', req.params.id); // Log ID nhận được
+  try {
+    const product = await findById(req.params.id);
+    console.log(product);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
     }
+    res.json(product);
+  } catch (error) {
+    console.error('Error in index controller:', error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
-  async index1(req, res) {
-    try{
-      const posts =await findById.findById(id[2]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index2(req, res) {
-    try{
-      const posts =await findById.findById(id[3]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index3(req, res) {
-    try{
-      const posts =await findById.findById(id[4]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index4(req, res) {
-    try{
-      const posts =await findById.findById(id[5]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index5(req, res) {
-    try{
-      const posts =await findById.findById(id[6]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index6(req, res) {
-    try{
-      const posts =await findById.findById(id[7]);
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index7(req, res) {
-    try{
-      const posts =await findById.findById('664875a78cc1a442de62369d');
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  async index8(req, res) {
-    try{
-      const posts =await findById.findById('664875a78cc1a442de62369d');
-      res.status(200).json([posts])
-    }catch(err){
-      res.status(500).json({error:err})
-    }
-  }
-  }
-  
-export default new post();
+};

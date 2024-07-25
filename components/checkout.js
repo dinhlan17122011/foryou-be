@@ -75,7 +75,7 @@ class CheckoutController {
       const { items, customer, status } = req.body;
       console.log(items);
       console.log(customer);
-      console.log(status);
+      // console.log(status);
       const updatedOrderData = req.body;
       console.log('Received request with data:', req.body);
       console.log('Received request with data:', updatedOrderData);

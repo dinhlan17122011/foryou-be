@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon  --openssl-legacy-provider index.js",
+    "proxy": "http://localhost:3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -21,6 +22,7 @@
     "mongod": "^2.0.0",
     "mongodb-memory-server": "^9.2.0",
     "mongoose": "^8.2.4",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "proxy": "^2.2.0"
   }
 }

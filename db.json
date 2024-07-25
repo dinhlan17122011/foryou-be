@@ -1,6 +1,6 @@
 {
   "_id": {
-    "$oid": "66a0509017e235da3a33d35b"
+    "$oid": "66a1aa0b1e743edda7f6eb32"
   },
   "items": [
     {
@@ -10,82 +10,19 @@
       "code": "2024",
       "size": "24x30 cm",
       "_id": {
-        "$oid": "66a0509017e235da3a33d35a"
+        "$oid": "66a1aa0b1e743edda7f6eb31"
       }
     }
   ],
-  "Accessory": [
-    {
-      "name": "Hộp gato mica trong suốt 22cm kèm ruy băng",
-      "number": 30000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05dd667499e03ee40e135"
-      }
-    },
-    {
-      "name": "Thiệp sinh nhật 7x10cm (chiếc)",
-      "number": 8000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05dd667499e03ee40e13b"
-      }
-    },
-    {
-      "name": "Bộ dao dĩa đĩa nhựa nến túi giấy Savor Cake",
-      "number": 20000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05dd767499e03ee40e142"
-      }
-    },
-    {
-      "name": "Nến sinh nhật nhũ vàng (10 chiếc)",
-      "number": 10000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05ddb67499e03ee40e14a"
-      }
-    },
-    {
-      "name": "Nến pháo bông sinh nhật (1 chiếc)",
-      "number": 10000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05ddc67499e03ee40e153"
-      }
-    },
-    {
-      "name": "Que cắm Happy birthday tròn vàng 16cm",
-      "number": 6000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05ddd67499e03ee40e15d"
-      }
-    },
-    {
-      "name": "Nến nhũ số 1",
-      "number": 8000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05de367499e03ee40e168"
-      }
-    },
-    {
-      "name": "Nến nhũ số 3",
-      "number": 8000,
-      "quantity": 1,
-      "_id": {
-        "$oid": "66a05de467499e03ee40e174"
-      }
-    }
-  ],
-  "customer":{},
+  "customer": {
+    
+  },
+  "Accessory": [],
   "createdAt": {
-    "$date": "2024-07-24T00:53:36.504Z"
+    "$date": "2024-07-25T01:27:39.439Z"
   },
   "updatedAt": {
-    "$date": "2024-07-24T01:50:28.433Z"
+    "$date": "2024-07-25T01:27:39.439Z"
   },
-  "__v": 8
+  "__v": 0
 }
