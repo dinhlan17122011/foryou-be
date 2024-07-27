@@ -38,6 +38,5 @@ router.get('/checkout/:id', checkoutController.getCheckoutById);
 router.put('/checkout/:id', checkoutController.updateCheckout);
 router.delete('/checkout/:id', checkoutController.deleteCheckout);
 router.post('/checkout/:id', checkoutController.addAccessoryToCart); // Thêm sản phẩm vào giỏ hàng
-
-
+// router.get('/checkout/:id/xong',checkoutController.getCheckoutByIdcheckoutxong)
 export default router;

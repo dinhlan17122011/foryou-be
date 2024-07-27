@@ -13,29 +13,29 @@ class CheckoutController {
       }
 
       // Kiểm tra xem customer có hợp lệ không
-      // if (!customer || !Array.isArray(customer.orderer) || !Array.isArray(customer.deliveryaddress)) {
-      //   return res.status(400).json({ message: 'Thông tin khách hàng không hợp lệ' });
-      // }
+      if (!customer || !Array.isArray(customer.orderer) || !Array.isArray(customer.deliveryaddress)) {
+        return res.status(400).json({ message: 'Thông tin khách hàng không hợp lệ' });
+      }
 
       const convertedItems = items.map(item => ({
         ...item,
         _id: new mongoose.Types.ObjectId()
       }));
 
-      // const convertedCustomer = {
-      //   ...customer,
-      //   _id: new mongoose.Types.ObjectId(),
-      //   orderer: customer.orderer.map(orderer => ({
-      //     ...orderer,
-      //     _id: new mongoose.Types.ObjectId()
-      //   })),
-      //   deliveryaddress: customer.deliveryaddress.map(address => ({
-      //     ...address,
-      //     _id: new mongoose.Types.ObjectId()
-      //   }))
-      // };
+      const convertedCustomer = {
+        ...customer,
+        _id: new mongoose.Types.ObjectId(),
+        orderer: customer.orderer.map(orderer => ({
+          ...orderer,
+          _id: new mongoose.Types.ObjectId()
+        })),
+        deliveryaddress: customer.deliveryaddress.map(address => ({
+          ...address,
+          _id: new mongoose.Types.ObjectId()
+        }))
+      };
 
-      // const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const totalAmount = convertedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
       const newCheckout = new Checkout({ items: convertedItems });
       await newCheckout.save();
@@ -51,22 +51,24 @@ class CheckoutController {
   async getCheckoutById(req, res) {
     try {
       const { id } = req.params;
-
+      console.log(id);
       if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'ID không hợp lệ' });
       }
-
+  
       const checkout = await Checkout.findById(id);
       if (!checkout) {
         return res.status(404).json({ message: 'Không tìm thấy checkout' });
       }
-
+  
       res.status(200).json(checkout);
+      console.log(checkout);
     } catch (error) {
       console.error('Lỗi khi lấy thông tin checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi lấy thông tin checkout', error });
     }
   }
+  
 
   // Cập nhật checkout
   async updateCheckout(req, res) {
@@ -110,6 +112,8 @@ class CheckoutController {
       console.error('Lỗi khi cập nhật checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi cập nhật checkout', error });
     }
+
+  
   }
 
   // Xóa checkout
@@ -137,7 +141,7 @@ class CheckoutController {
   // Thêm phụ kiện vào giỏ hàng
   async addAccessoryToCart(req, res) {
     try {
-      const { cartId, name, number, quantity,img } = req.body;
+      const { cartId, name, number, quantity } = req.body;
 
       console.log('Received from client:', { cartId, name, number, quantity });
 
@@ -158,7 +162,6 @@ class CheckoutController {
       checkout.Accessory.push({
         _id: new mongoose.Types.ObjectId(),
         name,
-        img,
         number,
         quantity
       });
@@ -257,5 +260,6 @@ class CheckoutController {
     }
   }
 }
+
 
 export default new CheckoutController();

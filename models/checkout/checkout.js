@@ -27,7 +27,7 @@ const deliveryAddressSchema = new mongoose.Schema({
 
 const deliveryTimeSchema = new mongoose.Schema({
   time: { type: String },
-  time: { type: String },
+  date: { type: String },
 });
 
 const customerSchema = new mongoose.Schema({
