@@ -51,7 +51,9 @@ class CheckoutController {
   async getCheckoutById(req, res) {
     try {
       const { id } = req.params;
-      console.log(id);
+      console.log(req.params.id);
+      console.log('ID: ',id);
+      // console.log(id);
       if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: 'ID không hợp lệ' });
       }
@@ -62,7 +64,7 @@ class CheckoutController {
       }
   
       res.status(200).json(checkout);
-      console.log(checkout);
+      // console.log(checkout);
     } catch (error) {
       console.error('Lỗi khi lấy thông tin checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi lấy thông tin checkout', error });
