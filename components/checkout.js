@@ -50,18 +50,19 @@ class CheckoutController {
   // Lấy thông tin checkout theo ID
   async getCheckoutById(req, res) {
     try {
-      const { id } = req.params;
-      console.log(req.params.id);
+      // const { id } = req.params['id'];
+      // console.log('ID RES : ',req.params['id']);
+      const id  = req.params.id;
+      console.log('ID RES : ',req.params.id);
       console.log('ID: ',id);
-      // console.log(id);
-      if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({ message: 'ID không hợp lệ' });
-      }
+      // if (!mongoose.isValidObjectId(id)) {
+      //   return res.status(400).json({ message: 'ID không hợp lệ' });
+      // }
   
       const checkout = await Checkout.findById(id);
-      if (!checkout) {
-        return res.status(404).json({ message: 'Không tìm thấy checkout' });
-      }
+      // if (!checkout) {
+      //   return res.status(404).json({ message: 'Không tìm thấy checkout' });
+      // }
   
       res.status(200).json(checkout);
       // console.log(checkout);
