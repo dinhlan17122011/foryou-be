@@ -50,22 +50,19 @@ class CheckoutController {
   // Lấy thông tin checkout theo ID
   async getCheckoutById(req, res) {
     try {
-      // const { id } = req.params['id'];
-      // console.log('ID RES : ',req.params['id']);
       const id  = req.params.id;
-      console.log('ID RES : ',req.params.id);
-      console.log('ID: ',id);
-      // if (!mongoose.isValidObjectId(id)) {
-      //   return res.status(400).json({ message: 'ID không hợp lệ' });
-      // }
+      console.log('Received ID:', id);
+      if (!mongoose.isValidObjectId(id)) {
+        return res.status(400).json({ message: 'ID không hợp lệ' });
+      }
   
       const checkout = await Checkout.findById(id);
-      // if (!checkout) {
-      //   return res.status(404).json({ message: 'Không tìm thấy checkout' });
-      // }
-  
-      res.status(200).json(checkout);
-      // console.log(checkout);
+      if (checkout) {
+        res.status(200).json(checkout);
+        // console.log(checkout);
+    } else {
+        res.status(404).json({ error: 'Order not found' });
+    }
     } catch (error) {
       console.error('Lỗi khi lấy thông tin checkout:', error);
       res.status(500).json({ message: 'Đã xảy ra lỗi khi lấy thông tin checkout', error });
@@ -77,10 +74,7 @@ class CheckoutController {
   async updateCheckout(req, res) {
     try {
       const { id } = req.params;
-      const { items, customer, status } = req.body;
-      console.log(items);
-      console.log(customer);
-      // console.log(status);
+
       const updatedOrderData = req.body;
       console.log('Received request with data:', req.body);
       console.log('Received request with data:', updatedOrderData);
@@ -168,11 +162,7 @@ class CheckoutController {
         number,
         quantity
       });
-
-      // checkout.totalAmount = checkout.items.reduce((sum, item) => sum + item.number * item.quantity, 0) +
-      //                       checkout.Accessory.reduce((sum, accessory) => sum + accessory.number * accessory.quantity, 0);
-
-      // // Kiểm tra lại totalAmount để đảm bảo không phải là NaN
+      // Kiểm tra lại totalAmount để đảm bảo không phải là NaN
       // if (isNaN(checkout.totalAmount)) {
       //   return res.status(400).json({ message: 'Tổng số tiền không hợp lệ' });
       // }

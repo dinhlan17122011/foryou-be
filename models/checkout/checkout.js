@@ -48,7 +48,7 @@ const AccessorySchema = new mongoose.Schema({
 const checkoutSchema = new mongoose.Schema({
   items: [itemSchema],
   customer: customerSchema,
-  totalAmount: { type: Number },
+  // totalAmount: { type: Number },
   Accessory: [AccessorySchema],
   createdAt: {
     type: Date,
@@ -60,6 +60,6 @@ const checkoutSchema = new mongoose.Schema({
   },
 });
 
-const Checkout = mongoose.model('Checkout', checkoutSchema);
+const Checkout = mongoose.model('checkout', checkoutSchema);
 
 export default Checkout;

@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "66b5f45feeab00b6ca205eb9"
+  },
+  "items": [
+    {
+      "namecake": "Bánh kem bơ xoài việt quất",
+      "price": 200000,
+      "quantity": 1,
+      "code": "2024",
+      "size": "24x30 cm",
+      "_id": {
+        "$oid": "66b5f45feeab00b6ca205eb5"
+      }
+    }
+  ],
+  "Accessory": [],
+  "createdAt": {
+    "$date": "2024-08-09T10:50:07.863Z"
+  },
+  "customer": {},
+  "updatedAt": {
+    "$date": "2024-08-09T10:50:07.863Z"
+  },
+  "__v": 0
+}]
