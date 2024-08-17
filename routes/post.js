@@ -9,6 +9,7 @@ import introduction from '../components/introduction.js';
 import contact from '../components/contact.js';
 import policy from '../components/policy.js';
 import checkoutController from '../components/checkout.js';
+import Checkout from '../models/checkout/checkout.js';
 
 router.use('/cake', cake.index);
 

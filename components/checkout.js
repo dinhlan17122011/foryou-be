@@ -76,8 +76,6 @@ class CheckoutController {
       const { id } = req.params;
 
       const updatedOrderData = req.body;
-      console.log('Received request with data:', req.body);
-      console.log('Received request with data:', updatedOrderData);
 
   if (!updatedOrderData || Object.keys(updatedOrderData).length === 0) {
     return res.status(400).json({ message: 'Invalid data' });
@@ -96,7 +94,7 @@ class CheckoutController {
 
       const updatedCheckout = await Checkout.findByIdAndUpdate(
         id,
-        { items, customer, totalAmount, status, updatedAt: Date.now() },
+        { items, customer, totalAmount, updatedAt: Date.now() },
         { new: true }
       );
 
