@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { set } from 'mongoose';
 
 const itemSchema = new mongoose.Schema({
   namecake: { type: String },
@@ -30,14 +30,19 @@ const deliveryTimeSchema = new mongoose.Schema({
   date: { type: String },
 });
 
+function stringToBoolean(str) {
+  return str === 'true'; // Chỉ chuyển 'true' thành true, các giá trị khác thành false
+}
+
 const customerSchema = new mongoose.Schema({
   orderer: [ordererSchema],
   deliveryaddress: [deliveryAddressSchema],
   ordererSchemarecipient:[ordererSchemarecipient],
-  bill: { type: String },
+  bill: { type:String },
   note: { type: String },
   deliverytime: [deliveryTimeSchema],
 });
+
 
 const AccessorySchema = new mongoose.Schema({
   name: { type: String },

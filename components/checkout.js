@@ -1,6 +1,6 @@
 import Checkout from '../models/checkout/checkout.js';
 import mongoose from 'mongoose';
-
+const { ObjectId } = mongoose.Types;
 class CheckoutController {
   // Tạo mới checkout
   async createCheckout(req, res) {
@@ -71,45 +71,57 @@ class CheckoutController {
   
 
   // Cập nhật checkout
-  async updateCheckout(req, res) {
-    try {
-      const { id } = req.params;
+async updateCheckout(req, res) {
+  try {
+    const { id } = req.params;
+    const updatedOrderData = req.body;
 
-      const updatedOrderData = req.body;
+    // Kiểm tra dữ liệu gửi lên
+    const { items, customer } = updatedOrderData;
+    if (!updatedOrderData || Object.keys(updatedOrderData).length === 0) {
+      return res.status(400).json({ message: 'Invalid data' });
+    }
+    const areAllObjectIdsValid = items.every(item => mongoose.isValidObjectId(item._id));
 
-  if (!updatedOrderData || Object.keys(updatedOrderData).length === 0) {
-    return res.status(400).json({ message: 'Invalid data' });
-  }
+if (!areAllObjectIdsValid) {
+  return res.status(400).json({ message: 'Invalid ObjectId in items' });
+}
 
-      // Kiểm tra xem items có phải là một mảng hợp lệ không
-      if (!Array.isArray(items)) {
-        return res.status(400).json({ message: 'Items không hợp lệ' });
-      }
 
-      const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-      if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({ message: 'ID không hợp lệ' });
-      }
-
-      const updatedCheckout = await Checkout.findByIdAndUpdate(
-        id,
-        { items, customer, totalAmount, updatedAt: Date.now() },
-        { new: true }
-      );
-
-      if (!updatedCheckout) {
-        return res.status(404).json({ message: 'Không tìm thấy checkout để cập nhật' });
-      }
-
-      res.status(200).json({ message: 'Cập nhật checkout thành công', checkout: updatedCheckout });
-    } catch (error) {
-      console.error('Lỗi khi cập nhật checkout:', error);
-      res.status(500).json({ message: 'Đã xảy ra lỗi khi cập nhật checkout', error });
+    // Kiểm tra xem items có phải là một mảng hợp lệ không
+    if (!Array.isArray(items)) {
+      return res.status(400).json({ message: 'Items không hợp lệ' });
     }
 
-  
+    // Tính tổng số tiền
+    const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // Kiểm tra tính hợp lệ của ID
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ message: 'ID không hợp lệ' });
+    }
+
+    // Cập nhật checkout
+    const updatedCheckout = await Checkout.findByIdAndUpdate(
+      id,
+      { items, customer, totalAmount, updatedAt: Date.now() },
+      { new: true }
+    );
+
+    // Kiểm tra xem checkout có tồn tại không
+    if (!updatedCheckout) {
+      return res.status(404).json({ message: 'Không tìm thấy checkout để cập nhật' });
+    }
+
+    // Phản hồi thành công
+    res.status(200).json({ message: 'Cập nhật checkout thành công', checkout: updatedCheckout });
+  } catch (error) {
+    // Ghi lại lỗi chi tiết
+    console.error('Lỗi khi cập nhật checkout:', JSON.stringify(error, null, 2));
+    res.status(500).json({ message: 'Đã xảy ra lỗi khi cập nhật checkout', error: error.message || error });
   }
+}
+
 
   // Xóa checkout
   async deleteCheckout(req, res) {
